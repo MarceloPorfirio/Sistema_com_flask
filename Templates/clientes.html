@@ -1,0 +1,37 @@
+{% extends 'base.html' %} <!--extender da página base-->
+{% block conteudo %}
+    <h2 style = 'text-align: center; color: blue; padding: 20px;'>Clientes</h2>
+
+    <a href="{{url_for('novoCliente')}}" class="btn btn-primary">Adicionar Cliente</a>
+    <br>
+    <br>
+    
+    
+    <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Nome</th>
+              <th scope="col">Telefone</th>
+              <th scope="col">Email</th>
+              <th scope="col">Endereço</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+        <tbody>
+            
+            {% for cliente in cursos %}
+            <tr>
+                <td>{{clientes.id}}</td>
+                <td>{{clientes.nome}}</td>
+                <td>{{curso.telefone}}</td>
+                <td>{{curso.email }}</td>
+                <td>{{curso.endereco }}</td>
+                <td>
+                    <a href="{{curso.id}}/atualiza_curso" class="btn btn-secondary btn-xs">Editar</a>
+                    <a href="{{curso.id}}/remove_curso"
+                    onclick="return confirm('Deseja excluir esse registro?')" class="btn btn-danger btn-xs">Excluir</a> 
+                </td>
+            </tr>
+            {% endfor %}
+{% endblock conteudo %}

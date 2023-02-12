@@ -8,10 +8,7 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cursos.sqlite3"  ##aqui vai o
 
 db = SQLAlchemy(app) # passa todos dados do app para o banco, todas instruções
 
-frutas = [] #declarando fora do escopo, ela fica globalmente e vai adicionando os itens
-registros = [] # colocar os dicionarios dentro de uma lista
-
-class cursos(db.Model): # criando relacionamento entre banco de dados e sistema
+class clientes(db.Model): # criando relacionamento entre banco de dados e sistema
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(50))
     telefone = db.Column(db.String(50))
@@ -26,15 +23,29 @@ class cursos(db.Model): # criando relacionamento entre banco de dados e sistema
 
 @app.route('/',methods = ['GET','POST'])     
 def primeiraRota():
-    #frutas = ['Maça', 'Banana', 'Uva', 'Laranja']
-    #frutas =[] declarando a lista dentro da função, sempre será substituida
-    if request.method =='POST': #verifica se é o metodo poat utilizado
-        if request.form.get('fruta'): # verifica se algo foi escrito
-            frutas.append(request.form.get('fruta')) # adiciona o item digitado na lista
-
-    return render_template('index.html',frutas = frutas)   
+    return render_template('index.html')   
     
+@app.route('/clientes', methods = ['GET','POST'])
+def rotaCliente():
 
+    return render_template('clientes.html',clientes=clientes.query.all())
+
+@app.route('/novo_cliente' , methods=['GET','POST'])
+def novoCliente(): 
+    nome = request.form.get('nome') # vai pegar o nome do form html (capturar valores)
+    telefone = request.form.get('telefone')
+    email = request.form.get('email')
+    endereco = request.form.get('endereco')
+    # verificar se o método chamado é o post
+    if request.method == 'POST':
+        if not nome or not telefone or not email or not endereco: # se um destes campos nao for preenchido, aparece a msg.
+            flash('Preencha todos os campos do formulário', 'error')
+        else:
+            cliente = clientes(nome,telefone,email,endereco) # valores que vem do formulario 
+            db.session.add(cliente) # adiciona no db 
+            db.session.commit()  # realiza mudanças
+            return redirect(url_for('rotaCliente')) # redireciona para a pagina lista cursos
+    return render_template('addCliente.html')  
 
 if __name__ == '__main__':
     db.create_all() 
