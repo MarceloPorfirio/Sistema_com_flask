@@ -1,22 +1,22 @@
 {% extends 'base.html' %} <!--extender da página base-->
 {% block conteudo %}
-    <h2 style = 'text-align: center;'>Adicionar Cliente</h2>
+    <h2 style = 'text-align: center; padding: 10px; color: blue;'>Adicionar Cliente</h2>
 <hr>
 {%- for mensagem in get_flashed_messages() %}
     <div class="alert alert-danger">
         {{mensagem}}
     </div>
 {%- endfor%}
-<form action="#" method="post">
+<form action="{{url_for('novoCliente')}}" method="POST" >
     
     <label class="form-label">Nome</label>
-    <input class='form-control' type="text" name="nome" placeholder="Nome do curso">
+    <input class='form-control' type="text" name="nome" placeholder="Nome do curso" required>
     <label>Telefone</label>
-    <input class = 'form-control' type="number" name="telefone" placeholder="Descrição do curso">
+    <input class = 'form-control' type="number" name="telefone" placeholder="Descrição do curso" required>
     <label>Email</label>
-    <input class ='form-control' type="text" name="Email" placeholder="Carga Horária">
+    <input class ='form-control' type="text" name="email" placeholder="Carga Horária">
     <label>Endereço</label>
-    <input class ='form-control' type="text" name="endereço" placeholder="Carga Horária">
+    <input class ='form-control' type="text" name="endereco" placeholder="Carga Horária">
     <br>
     <button class="btn btn-primary" >Adicionar</button>
 </form>

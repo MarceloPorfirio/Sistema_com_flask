@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head> 
 <body>
+  <style>
+    body{
+      font-size: 1.2em;
+    }
+  </style>
     <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
         <a class="navbar-brand" href="#">ALL CLEAN</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,14 +20,14 @@
         </button>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+          <ul class="navbar-nav mr-auto p-2 mx-5">
+            <li class="nav-item active mx-3">
               <a class="nav-link" href="{{url_for('primeiraRota')}}">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active mx-3">
               <a class="nav-link" href="{{url_for('rotaCliente')}}">Clientes</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item active mx-3">
               <a class="nav-link" href="#">Despesas</a>
             </li>
             

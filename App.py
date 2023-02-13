@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.app_context().push() #Isso geralmente significa que você tentou usar a funcionalidade que precisava do aplicativo atual. Para resolver isso, configure um contexto de aplicativo com
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///cursos.sqlite3"  ##aqui vai o nome do banco de dados
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///clientes.sqlite3"  ##aqui vai o nome do banco de dados
 
 db = SQLAlchemy(app) # passa todos dados do app para o banco, todas instruções
 
@@ -27,7 +27,7 @@ def primeiraRota():
     
 @app.route('/clientes', methods = ['GET','POST'])
 def rotaCliente():
-
+    
     return render_template('clientes.html',clientes=clientes.query.all())
 
 @app.route('/novo_cliente' , methods=['GET','POST'])
@@ -37,14 +37,11 @@ def novoCliente():
     email = request.form.get('email')
     endereco = request.form.get('endereco')
     # verificar se o método chamado é o post
-    if request.method == 'POST':
-        if not nome or not telefone or not email or not endereco: # se um destes campos nao for preenchido, aparece a msg.
-            flash('Preencha todos os campos do formulário', 'error')
-        else:
-            cliente = clientes(nome,telefone,email,endereco) # valores que vem do formulario 
-            db.session.add(cliente) # adiciona no db 
-            db.session.commit()  # realiza mudanças
-            return redirect(url_for('rotaCliente')) # redireciona para a pagina lista cursos
+    
+    cliente = clientes(nome,telefone,email,endereco) # valores que vem do formulario 
+    db.session.add(cliente) # adiciona no db 
+    db.session.commit()  # realiza mudanças
+    #return redirect(url_for('rotaCliente')) # redireciona para a pagina lista cursos
     return render_template('addCliente.html')  
 
 if __name__ == '__main__':

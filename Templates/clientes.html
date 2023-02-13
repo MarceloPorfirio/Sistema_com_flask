@@ -1,12 +1,34 @@
 {% extends 'base.html' %} <!--extender da página base-->
 {% block conteudo %}
     <h2 style = 'text-align: center; color: blue; padding: 20px;'>Clientes</h2>
-
-    <a href="{{url_for('novoCliente')}}" class="btn btn-primary">Adicionar Cliente</a>
+    <div class="container">
+        <div class="row">
+            <div class ='col-sm'>
+            <a href="{{url_for('novoCliente')}}"  class="btn btn-primary">Adicionar Cliente</a>
+            </div>
+            
+            
+            
+            
+            <div class="input-group col-4">
+                <div class="form-outline px-1">
+                  <input type="search" id="form1" class="form-control p-1" />
+                  
+                </div>
+                <button type="button" class="btn btn-primary"> Buscar
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            
+                
+                
+         </div>
+      </div>
+    </div>
     <br>
     <br>
     
-    
+    <div class="container">
     <table class="table table-bordered table-hover">
         <thead class="table-primary">
             <tr>
@@ -20,18 +42,19 @@
           </thead>
         <tbody>
             
-            {% for cliente in cursos %}
+            {% for cliente in clientes %}
             <tr>
-                <td>{{clientes.id}}</td>
-                <td>{{clientes.nome}}</td>
-                <td>{{curso.telefone}}</td>
-                <td>{{curso.email }}</td>
-                <td>{{curso.endereco }}</td>
+                <td>{{cliente.id}}</td>
+                <td>{{cliente.nome}}</td>
+                <td>{{cliente.telefone}}</td>
+                <td>{{cliente.email }}</td>
+                <td>{{cliente.endereco }}</td>
                 <td>
-                    <a href="{{curso.id}}/atualiza_curso" class="btn btn-secondary btn-xs">Editar</a>
-                    <a href="{{curso.id}}/remove_curso"
+                    <a href="#" class="btn btn-secondary btn-xs">Editar</a>
+                    <a href="#"
                     onclick="return confirm('Deseja excluir esse registro?')" class="btn btn-danger btn-xs">Excluir</a> 
                 </td>
             </tr>
+        </div>
             {% endfor %}
 {% endblock conteudo %}
