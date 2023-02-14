@@ -1,0 +1,25 @@
+{% extends 'base.html' %} <!--extender da página base-->
+{% block conteudo %}
+    <h2 style = 'text-align: center;'>Atualizar cliente</h2>
+<hr>
+{%- for mensagem in get_flashed_messages() %}
+    <div class="alert alert-danger">
+        {{mensagem}}
+    </div>
+{%- endfor%}
+<form action="{{url_for('atualiza_cliente', id=cliente.id)}}" method="post">
+    
+    <label class="form-label">Nome</label>
+    <input class='form-control' type="text" name="nome" value="{{cliente.nome}}" >
+    <label>Telefone</label>
+    <input class='form-control' type="text" name="telefone" value="{{cliente.telefone}}">
+    <label>Email</label>
+    <input class ='form-control' type="text" name="email"  value="{{cliente.email}}">
+    <label>Endereço</label>
+    <input class ='form-control' type="text" name="endereco"  value="{{cliente.endereco}}">
+
+    <br>
+    <button class="btn btn-primary">Atualizar</button>
+</form>
+
+{% endblock conteudo %}  

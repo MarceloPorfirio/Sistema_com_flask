@@ -44,6 +44,24 @@ def novoCliente():
     #return redirect(url_for('rotaCliente')) # redireciona para a pagina lista cursos
     return render_template('addCliente.html')  
 
+@app.route('/<int:id>/atualiza_cliente',methods= ['GET','POST'])
+def atualiza_cliente(id):
+    cliente = clientes.query.filter_by(id=id).first() # faz o filtro do curso pelo id
+    if request.method == 'POST':
+        nome = request.form['nome']
+        telefone = request.form['telefone']
+        email = request.form['email']
+        endereco = request.form['endereco']
+        clientes.query.filter_by(id=id).update({'nome':nome , 'telefone': telefone , 'email': email, 'endereco': endereco }) #update ira alterar a lista
+        db.session.commit()
+        return redirect(url_for('rotaCliente'))
+    return render_template('atualiza_cliente.html',cliente=cliente) # será retornado o curso
+
+@app.route('/adicionar_despesa',methods= ['GET','POST'])
+def adicionar_despesas():
+    return render_template('despesas.html')
+
+
 if __name__ == '__main__':
     db.create_all() 
 
