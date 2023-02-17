@@ -21,13 +21,25 @@ class clientes(db.Model): # criando relacionamento entre banco de dados e sistem
         self.email = email
         self.endereco = endereco
 
+class despesas(db.Model): # criando relacionamento entre banco de dados e sistema
+    id = db.Column(db.Integer,primary_key=True)
+    motivo = db.Column(db.String(50))
+    valor = db.Column(db.Float(50))
+    sujeito = db.Column(db.String(50))
+    descricao = db.Column(db.String(50))
+
+    def __init__(self,motivo,valor,sujeito,descricao): # metodo de construção
+        self.motivo = motivo
+        self.valor = valor
+        self.sujeito = sujeito
+        self.descricao = descricao
+
 @app.route('/',methods = ['GET','POST'])     
 def primeiraRota():
     return render_template('index.html')   
     
 @app.route('/clientes', methods = ['GET','POST'])
 def rotaCliente():
-    
     return render_template('clientes.html',clientes=clientes.query.all())
 
 @app.route('/novo_cliente' , methods=['GET','POST'])
@@ -58,8 +70,34 @@ def atualiza_cliente(id):
     return render_template('atualiza_cliente.html',cliente=cliente) # será retornado o curso
 
 @app.route('/adicionar_despesa',methods= ['GET','POST'])
-def adicionar_despesas():
+def adicionar_despesas(): 
     return render_template('despesas.html')
+
+
+@app.route('/<int:id>/remove_cliente') # pega apenas por id, no caso id é um inteiro
+def remove_cliente(id):
+    cliente = clientes.query.filter_by(id=id).first()
+    db.session.delete(cliente)
+    db.session.commit()
+    return redirect(url_for('rotaCliente'))
+
+
+
+
+# ADICIONAR DESPESAS
+@app.route('/nova_despesa' , methods=['GET','POST'])
+def novaDespesa(): 
+    motivo = request.form.get('motivo') # vai pegar o nome do form html (capturar valores)
+    valor = request.form.get('valor')
+    sujeito = request.form.get('sujeito')
+    descricao = request.form.get('descricao')
+    # verificar se o método chamado é o post
+    
+    despesa = despesas(motivo,valor,sujeito,descricao) # valores que vem do formulario 
+    db.session.add(despesa) # adiciona no db 
+    db.session.commit()  # realiza mudanças
+    #return redirect(url_for('adicionar_despesas')) # redireciona para a pagina lista cursos
+    return render_template('addDespesa.html') 
 
 
 if __name__ == '__main__':

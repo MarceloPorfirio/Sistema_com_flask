@@ -1,0 +1,20 @@
+{% extends 'base.html' %} <!--extender da página base-->
+{% block conteudo %}
+    <h2 style = 'text-align: center; padding: 10px; color: blue;'>Adicionar Cliente</h2>
+
+ <form action="{{url_for('novaDespesa')}}" method="post">
+    
+        <label class="form-label">Motivo</label>
+        <input class='form-control' type="text" name="motivo"  >
+        <label>Valor</label>
+        <input class='form-control' type="number" name="valor" >
+        <label>Sujeito</label>
+        <input class ='form-control' type="text" name="sujeito"  >
+        <label>Descrição</label>
+        <input class ='form-control' type="text" name="descricao"  >
+    
+        <br>
+        <button class="btn btn-primary">Enviar</button>
+    </form>
+    
+{% endblock conteudo %}
