@@ -69,19 +69,12 @@ def atualiza_cliente(id):
         return redirect(url_for('rotaCliente'))
     return render_template('atualiza_cliente.html',cliente=cliente) # será retornado o curso
 
-@app.route('/adicionar_despesa',methods= ['GET','POST'])
-def adicionar_despesas(): 
-    return render_template('despesas.html')
-
-
 @app.route('/<int:id>/remove_cliente') # pega apenas por id, no caso id é um inteiro
 def remove_cliente(id):
     cliente = clientes.query.filter_by(id=id).first()
     db.session.delete(cliente)
     db.session.commit()
     return redirect(url_for('rotaCliente'))
-
-
 
 
 # ADICIONAR DESPESAS
@@ -98,6 +91,10 @@ def novaDespesa():
     db.session.commit()  # realiza mudanças
     #return redirect(url_for('adicionar_despesas')) # redireciona para a pagina lista cursos
     return render_template('addDespesa.html') 
+
+@app.route('/adicionar_despesa',methods= ['GET','POST'])
+def adicionar_despesas(): 
+    return render_template('despesas.html',despesas = despesas.query.all())
 
 
 if __name__ == '__main__':
