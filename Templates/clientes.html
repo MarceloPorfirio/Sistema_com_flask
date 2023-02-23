@@ -1,6 +1,13 @@
 {% extends 'base.html' %} <!--extender da página base-->
 {% block conteudo %}
-    <h2 style = 'text-align: center; color: blue; padding: 20px;'>Clientes</h2>
+
+{%- for mensagem in get_flashed_messages() %}
+    <div class="alert alert-primary">
+        {{mensagem}}
+    </div>
+{%- endfor%}
+
+   <h2 style = 'text-align: center; color: blue; padding: 20px;'>Clientes</h2>
     <div class="container">
         <div class="row">
             <div class ='col-sm'>
@@ -50,6 +57,7 @@
                 <td>{{cliente.email }}</td>
                 <td>{{cliente.endereco }}</td>
                 <td>
+                    
                     <a href="{{cliente.id}}/atualiza_cliente" class="btn btn-secondary btn-xs">Editar</a>
                     <a href="{{cliente.id}}/remove_cliente"
                     onclick="return confirm('Deseja excluir esse registro?')" class="btn btn-danger btn-xs">Excluir</a>

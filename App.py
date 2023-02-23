@@ -66,6 +66,7 @@ def atualiza_cliente(id):
         endereco = request.form['endereco']
         clientes.query.filter_by(id=id).update({'nome':nome , 'telefone': telefone , 'email': email, 'endereco': endereco }) #update ira alterar a lista
         db.session.commit()
+        flash('Atualização feita com sucesso!')
         return redirect(url_for('rotaCliente'))
     return render_template('atualiza_cliente.html',cliente=cliente) # será retornado o curso
 
@@ -74,6 +75,7 @@ def remove_cliente(id):
     cliente = clientes.query.filter_by(id=id).first()
     db.session.delete(cliente)
     db.session.commit()
+    flash('cliente removido com sucesso!') # mensagem do cliente removido com sucesso
     return redirect(url_for('rotaCliente'))
 
 
