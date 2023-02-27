@@ -8,6 +8,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///clientes.sqlite3"  ##aqui vai
 
 db = SQLAlchemy(app) # passa todos dados do app para o banco, todas instruções
 
+
+
+
 class clientes(db.Model): # criando relacionamento entre banco de dados e sistema
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(50))
@@ -77,6 +80,11 @@ def remove_cliente(id):
     db.session.commit()
     flash('cliente removido com sucesso!') # mensagem do cliente removido com sucesso
     return redirect(url_for('rotaCliente'))
+
+#criar função de buscas
+@app.route('search', method=['POST'])
+def search():
+    pass
 
 
 # ADICIONAR DESPESAS

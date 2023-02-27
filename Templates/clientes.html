@@ -19,12 +19,15 @@
             
             <div class="input-group col-4">
                 <div class="form-outline px-1">
+                  <form method="POST" action="{{url_for('search')}}">
+                    {{form.hidden_tag()}}
                   <input type="search" id="form1" class="form-control p-1" />
                   
                 </div>
                 <button type="button" class="btn btn-primary"> Buscar
                   <i class="fas fa-search"></i>
                 </button>
+                  </form>
               </div>
             
                 
