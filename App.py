@@ -8,9 +8,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///clientes.sqlite3"  ##aqui vai
 
 db = SQLAlchemy(app) # passa todos dados do app para o banco, todas instruções
 
-
-
-
 class clientes(db.Model): # criando relacionamento entre banco de dados e sistema
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(50))
@@ -82,15 +79,15 @@ def remove_cliente(id):
     return redirect(url_for('rotaCliente'))
 
 #criar função de buscas
-# @app.route('/search', methods=['GET','POST'])
-# def search():
-#     if request.method == 'POST':
-#         nome = request.form['nome']
-#         db.session("SELECT * FROM tabela WHERE nome = ?", (nome,))
-#         resultado = db.fetchall()
-#         return render_template('result_busca.html', resultado=resultado)
-#     else:
-#         return render_template('clientes.html')
+@app.route('/search', methods=['GET','POST'])
+def search():
+    if request.method == 'POST':
+        nome = request.form['nome']
+        db.session("SELECT * FROM tabela WHERE nome = ?", (nome,))
+        resultado = db.fetchall()
+        return render_template('result_busca.html', resultado=resultado)
+    else:
+        return render_template('result_busca.html')
 
 
 # ADICIONAR DESPESAS
