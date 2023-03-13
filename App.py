@@ -82,9 +82,15 @@ def remove_cliente(id):
     return redirect(url_for('rotaCliente'))
 
 #criar função de buscas
-@app.route('search', method=['POST'])
-def search():
-    pass
+# @app.route('/search', methods=['GET','POST'])
+# def search():
+#     if request.method == 'POST':
+#         nome = request.form['nome']
+#         db.session("SELECT * FROM tabela WHERE nome = ?", (nome,))
+#         resultado = db.fetchall()
+#         return render_template('result_busca.html', resultado=resultado)
+#     else:
+#         return render_template('clientes.html')
 
 
 # ADICIONAR DESPESAS
