@@ -110,6 +110,7 @@ def adicionar_despesas():
     return render_template('despesas.html',despesas = despesas.query.all())
 
 
+
 if __name__ == '__main__':
     db.create_all() 
 
