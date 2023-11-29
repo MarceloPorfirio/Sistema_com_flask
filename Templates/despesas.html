@@ -1,64 +1,70 @@
-{% extends 'base.html' %} <!--extender da página base-->
+{% extends 'base.html' %}
+<!-- extender da página base -->
 {% block conteudo %}
-    <h2 style = 'text-align: center; color: blue; padding: 20px;'>Adicionar Despesa</h2>
+    <h2 style='text-align: center; color: blue; padding: 20px;'>Adicionar Despesa</h2>
 
     <div class="container">
         <div class="row">
-            <div class ='col-sm'>
-            <a href="{{url_for('novaDespesa')}}"  class="btn btn-primary">Adicionar Despesa</a>
+            <div class='col-sm'>
+                <a href="{{url_for('novaDespesa')}}" class="btn btn-primary">Adicionar Despesa</a>
             </div>
-             
+
             <div class="input-group col-4">
                 <div class="form-outline px-1">
-                  <input type="search" id="form1" class="form-control p-1" />
-                  
+                    <input type="search" id="form1" class="form-control p-1" />
                 </div>
-                <button type="button" class="btn btn-primary"> Buscar
-                  <i class="fas fa-search"></i>
+                <button type="button" class="btn btn-primary">
+                    Buscar
+                    <i class="fas fa-search"></i>
                 </button>
-              </div>       
-         </div>
-      </div>
+            </div>
+        </div>
     </div>
     <br>
     <br>
-    
+
     <div class="container">
-    <table class="table table-bordered table-hover">
-        <thead class="table-primary">
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Motivo</th>
-              <th scope="col">Valor</th>
-              <th scope="col">Sujeito</th>
-              <th scope="col">Descrição</th>
-              <th scope="col">Ações</th>
-            </tr>
-          </thead>
-        <tbody>
-            
-    {% for despesa in despesas %}
-            <tr>
-                <td>{{despesa.id}}</td>
-                <td>{{despesa.motivo}}</td>
-                <td>{{despesa.valor}}</td>
-                <td>{{despesa.sujeito }}</td>
-                <td>{{despesa.descricao }}</td>
-                <!-- <td>
-                     <a href="{{despesa.id}}/atualiza_cliente" class="btn btn-secondary btn-xs">Editar</a>
-                    <a href="{{despesa.id}}/remove_cliente"
-                    onclick="return confirm('Deseja excluir esse registro?')" class="btn btn-danger btn-xs">Excluir</a>
-                </td> -->
-            </tr>
+      {%- for mensagem in get_flashed_messages() %}
+        <div class="alert alert-primary">
+            {{mensagem}}
         </div>
-    {% endfor %}
+      {%- endfor%}
 
-           
+        <table class="table table-bordered table-hover">
+            <thead class="table-primary">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Motivo</th>
+                    <th scope="col">Valor</th>
+                    <th scope="col">Sujeito</th>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for despesa in despesas %}
+                    <tr>
+                        <td>{{ despesa.id }}</td>
+                        <td>{{ despesa.motivo }}</td>
+                        <td>{{ despesa.valor }}</td>
+                        <td>{{ despesa.sujeito }}</td>
+                        <td>{{ despesa.descricao }}</td>
+                        <!-- <td>
+                            <a href="{{ despesa.id }}/atualiza_cliente" class="btn btn-secondary btn-xs">Editar</a>
+                            <a href="{{ despesa.id }}/remove_cliente" onclick="return confirm('Deseja excluir esse registro?')" class="btn btn-danger btn-xs">Excluir</a>
+                        </td> -->
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Adiciona a navegação de página -->
+      
+    </div>
+
+    <script>
+      setTimeout(function() {
+          window.location.href = "{{url_for('adicionar_despesas')}}";
+      }, 4000); // 2000 milissegundos = 2 segundos
+  </script>
 {% endblock conteudo %}
-
-
-    
-
-
-
-  

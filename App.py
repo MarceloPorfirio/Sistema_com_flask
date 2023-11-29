@@ -1,5 +1,5 @@
 from flask import Flask, render_template,request, redirect, url_for, flash
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy, pagination
 
 
 app = Flask(__name__)
@@ -103,11 +103,19 @@ def novaDespesa():
     db.session.add(despesa) # adiciona no db 
     db.session.commit()  # realiza mudanças
     #return redirect(url_for('adicionar_despesas')) # redireciona para a pagina lista cursos
+    
     return render_template('addDespesa.html') 
+    
 
 @app.route('/adicionar_despesa',methods= ['GET','POST'])
-def adicionar_despesas(): 
-    return render_template('despesas.html',despesas = despesas.query.all())
+def adicionar_despesas():
+    if request.method == 'POST':
+        novaDespesa()
+        flash('Despesa Adicionada com sucesso !')
+        return redirect(url_for('adicionar_despesas'))
+     # Consulta para obter os 5 últimos registros do banco de dados
+    ultimas_despesas = despesas.query.order_by(despesas.id.desc()).limit(5).all()
+    return render_template('despesas.html',despesas = ultimas_despesas)
 
 
 

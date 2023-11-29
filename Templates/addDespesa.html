@@ -1,20 +1,39 @@
-{% extends 'base.html' %} <!--extender da página base-->
-{% block conteudo %}
-    <h2 style = 'text-align: center; padding: 10px; color: blue;'>Adicionar Cliente</h2>
+{% extends 'base.html' %}
 
- <form action="{{url_for('novaDespesa')}}" method="post">
-    
+{% block conteudo %}
+    <h2 style='text-align: center; padding: 10px; color: blue;'>Adicionar Despesa</h2>
+
+    <form action="{{url_for('adicionar_despesas')}}" method="post">
+        <!-- Seção Motivo -->
         <label class="form-label">Motivo</label>
-        <input class='form-control' type="text" name="motivo"  >
+        <select class='form-control' name="motivo">
+            <option value="Agua">Água</option>
+            <option value="Luz">Luz</option>
+            <option value="Aluguel">Aluguel</option>
+            <option value="Alimentacao">Alimentação</option>
+            <option value="MaterialLimpeza">Material de Limpeza</option>
+            <!-- Adicione mais opções conforme necessário -->
+        </select>
+
+        <!-- Seção Valor -->
         <label>Valor</label>
-        <input class='form-control' type="number" name="valor" >
+        <input class='form-control' type="number" name="valor">
+
+        <!-- Seção Sujeito -->
         <label>Sujeito</label>
-        <input class ='form-control' type="text" name="sujeito"  >
+        <input class='form-control' type="text" name="sujeito">
+
+        <!-- Seção Descrição -->
         <label>Descrição</label>
-        <input class ='form-control' type="text" name="descricao"  >
-    
+        <input class='form-control' type="text" name="descricao">
+
         <br>
+        <!-- Botão Enviar -->
         <button class="btn btn-primary">Enviar</button>
+
+        <!-- Botão Voltar -->
+        <a class="btn btn-secondary" href="{{url_for('adicionar_despesas')}}">Voltar</a>
     </form>
+
     
 {% endblock conteudo %}
