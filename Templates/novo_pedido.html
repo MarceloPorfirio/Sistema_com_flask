@@ -1,0 +1,30 @@
+{% extends 'base.html' %} <!--extender da página base-->
+{% block conteudo %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços de Lavanderia</title>
+</head>
+<body>
+    <h1>Novo Serviço de Lavanderia</h1>
+    <form method="post" action="{{ url_for('novo_pedido') }}">
+        <label for="tipo_servico">Tipo de Serviço:</label>
+        <input type="text" id="tipo_servico" name="tipo_servico" required>
+
+        <label for="descricao">Descrição:</label>
+        <textarea id="descricao" name="descricao" required></textarea>
+
+        <label for="preco">Preço:</label>
+        <input type="number" id="preco" name="preco" required>
+
+        <button type="submit">Adicionar Serviço</button>
+    </form>
+</body>
+</html>
+
+
+{% endblock conteudo %}

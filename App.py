@@ -117,7 +117,10 @@ def adicionar_despesas():
     ultimas_despesas = despesas.query.order_by(despesas.id.desc()).limit(5).all()
     return render_template('despesas.html',despesas = ultimas_despesas)
 
-
+# ROTA PEDIODOS
+@app.route('/pedidos',methods= ['GET','POST'])
+def novo_pedido():
+    return render_template('novo_pedido.html')
 
 if __name__ == '__main__':
     db.create_all() 
