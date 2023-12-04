@@ -7,24 +7,95 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Serviços de Lavanderia</title>
+    <title>Pedido</title>
 </head>
 <body>
-    <h1>Novo Serviço de Lavanderia</h1>
+    <h2 style='text-align: center; color: blue; padding: 20px;'>Novo Pedido</h2>
     <form method="post" action="{{ url_for('novo_pedido') }}">
-        <label for="tipo_servico">Tipo de Serviço:</label>
-        <input type="text" id="tipo_servico" name="tipo_servico" required>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscarClienteModal">Buscar Cliente</button>
+        <a href="{{url_for('novoCliente')}}" class="btn btn-primary">Adicionar Cliente</a>
 
-        <label for="descricao">Descrição:</label>
-        <textarea id="descricao" name="descricao" required></textarea>
+        <h4>Dados do Cliente</h4>
+        <p id="nomeCliente"></p>
+        <p id="telefoneCliente"></p>
+        <p id="emailCliente"></p>
+        <p id="enderecoCliente"></p>
 
-        <label for="preco">Preço:</label>
-        <input type="number" id="preco" name="preco" required>
+        <h4>Itens do Pedido</h4>
+        <!-- Outros campos do formulário aqui, por exemplo: -->
+        <div class="mb-3">
+            <label for="tipo_servico">Tipo de Serviço:</label>
+            <input type="text" id="tipo_servico" name="tipo_servico" class="form-control" required>
+        </div>
 
-        <button type="submit">Adicionar Serviço</button>
+        <div class="mb-3">
+            <label for="descricao">Descrição:</label>
+            <textarea id="descricao" name="descricao" class="form-control" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="preco">Preço:</label>
+            <input type="number" id="preco" name="preco" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Adicionar Serviço</button>
     </form>
+
+    <!-- Modal para buscar cliente -->
+    <div class="modal fade" id="buscarClienteModal" tabindex="-1" aria-labelledby="buscarClienteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="buscarClienteModalLabel">Buscar Cliente</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Adicionando campo de pesquisa -->
+                    <div class="mb-3">
+                        <label for="searchCliente">Buscar por nome:</label>
+                        <input type="text" id="searchCliente" class="form-control" oninput="buscarCliente()">
+                    </div>
+
+                    <!-- Resultados da busca -->
+                    <div id="resultadosBusca">
+                        <!-- Aqui você pode iterar sobre a lista de clientes do banco de dados -->
+                        {% for cliente in clientes %}
+                            <button type="button" class="btn btn-secondary" onclick="selecionarCliente('{{ cliente.nome }}', '{{ cliente.telefone }}', '{{ cliente.email }}', '{{ cliente.endereco }}')">{{ cliente.nome }}</button>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function buscarCliente() {
+            var input, filter, div, buttons, i, txtValue;
+            input = document.getElementById('searchCliente');
+            filter = input.value.toUpperCase();
+            div = document.getElementById('resultadosBusca');
+            buttons = div.getElementsByTagName('button');
+
+            for (i = 0; i < buttons.length; i++) {
+                txtValue = buttons[i].textContent || buttons[i].innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    buttons[i].style.display = "";
+                } else {
+                    buttons[i].style.display = "none";
+                }
+            }
+        }
+
+        function selecionarCliente(nome, telefone, email, endereco) {
+            document.getElementById('cliente').value = nome;
+            document.getElementById('nomeCliente').innerText = "Nome: " + nome;
+            document.getElementById('telefoneCliente').innerText = "Telefone: " + telefone;
+            document.getElementById('emailCliente').innerText = "Email: " + email;
+            document.getElementById('enderecoCliente').innerText = "Endereço: " + endereco;
+            $('#buscarClienteModal').modal('hide');
+        }
+    </script>
 </body>
 </html>
-
 
 {% endblock conteudo %}
